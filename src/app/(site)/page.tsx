@@ -62,18 +62,18 @@ export default function HomePage() {
             transition={{ duration: 1 }} 
             className="text-5xl md:text-8xl font-black leading-tight"
           >
-            Votre transformation <br />
+            Agence de <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500 drop-shadow-[0_0_25px_rgba(0,255,255,0.4)]">
-              Digitale
+              Création Web
             </span>{" "}
-            <span className="text-white">commence ici</span>
+            <span className="text-white">et Stratégie Digitale</span>
           </motion.h1>
 
           <motion.p 
             initial="hidden" animate="visible" variants={fadeInUp}
             className="text-xl text-gray-300 max-w-2xl mx-auto font-light leading-relaxed"
           >
-            Nous créons des expériences numériques d'exception qui propulsent votre entreprise vers de nouveaux sommets.
+            Nous créons des expériences numériques d'exception qui propulsent votre entreprise vers de nouveaux sommets.Votre transformation digitale commence ici.
           </motion.p>
 
           <motion.div 

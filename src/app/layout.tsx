@@ -8,31 +8,40 @@ const outfit = Outfit({
   weight: ["300", "400", "600", "700", "900"],
   variable: "--font-outfit",
 });
+// Exemple de script JSON-LD à mettre dans le <head> ou via next/script
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'FIERLAH Agency',
+  image: 'https://www.fierlah-agency.com/icon.png',
+  '@id': 'https://www.fierlah-agency.com',
+  url: 'https://www.fierlah-agency.com',
+  telephone: '+221 XX XXX XX XX', // Ton numéro
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Ton Quartier',
+    addressLocality: 'Dakar',
+    addressCountry: 'SN'
+  },
+  priceRange: '$$'
+}
 
 export const metadata: Metadata = {
   title: {
-    default: 'FIERLAH Agency | Création de Sites Web & Stratégie Digitale',
-    template: '%s | FIERLAH Agency' // Pour les autres pages (ex: "Contact | FIERLAH...")
+    default: 'FIERLAH Agency | Création de Sites Web & Marketing Digital au Sénégal',
+    template: '%s | FIERLAH Agency'
   },
-  description: 'Agence digitale experte en création de sites web performants, branding et stratégie marketing. Propulsez votre business avec FIERLAH.',
-  keywords: ['Agence web', 'Création site internet', 'Marketing digital', 'Développeur web', 'Freelance'],
+  description: 'Agence digitale experte en création de sites web modernes, stratégies SEO et branding. Transformez votre vision en succès numérique avec FIERLAH.',
+  metadataBase: new URL('https://www.fierlah-agency.com'), // Ton vrai domaine ici
   openGraph: {
-    title: 'FIERLAH Agency',
-    description: 'Transformez votre vision en réalité digitale.',
-    url: 'https://fierlah-website.vercel.app',
+    title: 'FIERLAH Agency - Votre Partenaire Digital',
+    description: 'Sites web performants et design unique.',
+    url: 'https://www.fierlah-agency.com',
     siteName: 'FIERLAH Agency',
-    images: [
-      {
-        url: '/images/og-image.jpg', // Une image de partage pour LinkedIn/WhatsApp
-        width: 1200,
-        height: 630,
-      },
-    ],
     locale: 'fr_FR',
     type: 'website',
   },
 }
-
 export default function RootLayout({
   children,
 }: {
