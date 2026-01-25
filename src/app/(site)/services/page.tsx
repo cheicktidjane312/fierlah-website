@@ -1,5 +1,34 @@
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
+
+// --- 1. DÉFINITION DES ICÔNES DIRECTEMENT ICI ---
+
+const IconWeb = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+  </svg>
+);
+
+const IconRocket = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+  </svg>
+);
+
+const IconSearch = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+  </svg>
+);
+
+const IconPalette = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />
+  </svg>
+);
+
+// --- 2. CONFIGURATION & DATA (Emojis remplacés) ---
+
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { 
@@ -8,32 +37,39 @@ const fadeInUp: Variants = {
     transition: { duration: 0.8, ease: "easeOut" }
   }
 };
+
 const servicesList = [
   {
     title: "Création de Site Web",
     description: "Vitrine, E-commerce ou sur-mesure. Nous développons des sites rapides, sécurisés et optimisés pour le référencement (SEO).",
     features: ["Design Responsive (Mobile & PC)", "Optimisation Google (SEO)", "Vitesse de chargement ultra-rapide", "Interface d'administration facile"],
-    icon: "💻"
+    // Remplacement emoji 💻
+    icon: <IconWeb className="w-8 h-8 text-blue-500" />
   },
   {
     title: "Publicité en Ligne (Ads)",
     description: "Boostez votre visibilité immédiatement sur Facebook, Instagram et Google. Nous gérons vos campagnes pour maximiser le retour sur investissement.",
     features: ["Ciblage précis de l'audience", "Création des visuels publicitaires", "Suivi des conversions (Pixel)", "Rapports de performance mensuels"],
-    icon: "🚀"
+    // Remplacement emoji 🚀
+    icon: <IconRocket className="w-8 h-8 text-orange-500" />
   },
   {
     title: "SEO & Référencement Naturel",
     description: "Apparaissez en premier sur Google. Une stratégie long terme pour attirer du trafic qualifié sans payer de publicité à chaque clic.",
     features: ["Audit technique complet", "Stratégie de mots-clés", "Optimisation du contenu", "Netlinking & popularité"],
-    icon: "🔍"
+    // Remplacement emoji 🔍
+    icon: <IconSearch className="w-8 h-8 text-green-500" />
   },
   {
     title: "Identité Visuelle & Branding",
     description: "Ne passez pas inaperçu. Du logo à la charte graphique complète, nous créons une image de marque qui inspire confiance.",
     features: ["Création de Logo unique", "Charte graphique complète", "Design de cartes de visite", "Visuels pour réseaux sociaux"],
-    icon: "🎨"
+    // Remplacement emoji 🎨
+    icon: <IconPalette className="w-8 h-8 text-purple-500" />
   }
 ];
+
+// --- 3. COMPOSANT PRINCIPAL ---
 
 export default function ServicesPage() {
   return (
