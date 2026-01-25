@@ -90,7 +90,7 @@ export default async function ContactPage() {
 
         {/* COLONNE DROITE : Formulaire Formspree Connecté */}
         <form 
-          action="https://formspree.io/f/xykebpzz" 
+          action="https://formspree.io/f/xjgyqzqj" 
           method="POST"
           className="space-y-6 bg-surface p-8 rounded-2xl border border-gray-800 shadow-[0_0_50px_rgba(0,0,0,0.5)]"
         >
