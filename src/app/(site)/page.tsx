@@ -2,9 +2,30 @@
 
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
-import Counter from "../../components/ui/Counter"; 
+import Counter from "../../components/ui/Counter"; // Assure-toi que ce chemin est bon chez toi, sinon ajuste-le.
 
-// Définition de l'animation
+// --- 1. DÉFINITION DES ICÔNES DIRECTEMENT ICI (Plus d'erreur d'import !) ---
+
+const IconWeb = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+  </svg>
+);
+
+const IconRocket = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+  </svg>
+);
+
+const IconPalette = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />
+  </svg>
+);
+
+// --- 2. CONFIGURATION ---
+
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: { 
@@ -15,18 +36,31 @@ const fadeInUp: Variants = {
 };
 
 const services = [
-  { title: "Développement Web", desc: "Sites performants et sur-mesure.", icon: "💻" },
-  { title: "Marketing Digital", desc: "Campagnes ROIstes sur Google & FB.", icon: "🚀" },
-  { title: "Branding", desc: "Identité visuelle marquante.", icon: "🎨" },
+  { 
+    title: "Développement Web", 
+    desc: "Sites performants et sur-mesure.", 
+    // Utilisation directe du composant SVG défini au-dessus
+    icon: <IconWeb className="w-12 h-12 text-blue-500" /> 
+  },
+  { 
+    title: "Marketing Digital", 
+    desc: "Campagnes ROIstes sur Google & FB.", 
+    icon: <IconRocket className="w-12 h-12 text-orange-500" /> 
+  },
+  { 
+    title: "Branding", 
+    desc: "Identité visuelle marquante.", 
+    icon: <IconPalette className="w-12 h-12 text-purple-500" /> 
+  },
 ];
 
-// 👇 STATISTIQUES MISES À JOUR (Sans café, chiffres ajustés)
 const stats = [
-  { label: "Projets", value: 10, suffix: "+" },   // Changé à 10+
+  { label: "Projets", value: 10, suffix: "+" },   
   { label: "Clients", value: 98, suffix: "%" },
-  { label: "Années", value: 2, suffix: "+" },     // Changé à 2+
-  // Café supprimé
+  { label: "Années", value: 2, suffix: "+" },     
 ];
+
+// --- 3. COMPOSANT PRINCIPAL ---
 
 export default function HomePage() {
   return (
@@ -100,10 +134,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION CHIFFRES CLÉS (Mise à jour) */}
+      {/* SECTION CHIFFRES CLÉS */}
       <section className="py-24 bg-surface/30 border-y border-white/5 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6">
-          {/* Changement ici : grid-cols-3 au lieu de 4 car on a enlevé le café */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
             {stats.map((stat, index) => (
               <motion.div
@@ -152,7 +185,10 @@ export default function HomePage() {
                 className="p-10 rounded-[2.5rem] bg-surface border border-white/5 hover:border-primary/40 transition-all duration-500 group shadow-2xl relative overflow-hidden"
               >
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
-                <div className="text-5xl mb-6">{service.icon}</div>
+                
+                {/* L'icône s'affiche ici */}
+                <div className="mb-6">{service.icon}</div>
+                
                 <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">{service.title}</h3>
                 <p className="text-gray-400 leading-relaxed">{service.desc}</p>
               </motion.div>
