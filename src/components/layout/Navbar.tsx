@@ -6,6 +6,13 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
+// 1. DÉFINITION DE L'ICÔNE CADENAS (Pour l'admin)
+const IconLock = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+  </svg>
+);
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -40,7 +47,7 @@ export default function Navbar() {
         </motion.div>
 
         {/* MENU DESKTOP */}
-        <div className="hidden md:flex items-center space-x-10">
+        <div className="hidden md:flex items-center space-x-8">
           {links.map((link) => (
             <Link 
               key={link.href} 
@@ -52,6 +59,19 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
+
+          {/* SÉPARATEUR VERTICAL DISCRET */}
+          <div className="h-6 w-px bg-gray-800 mx-2"></div>
+
+          {/* BOUTON ADMIN (Cadenas) */}
+          <Link 
+            href="/studio" 
+            target="_blank" // Ouvre dans un nouvel onglet pour ne pas perdre le site
+            className="text-gray-500 hover:text-primary transition-colors p-2"
+            title="Connexion Admin"
+          >
+            <IconLock className="w-5 h-5" />
+          </Link>
 
           {/* BOUTON "VIVANT" */}
           <motion.div
@@ -85,6 +105,17 @@ export default function Navbar() {
                     {link.name}
                 </Link>
              ))}
+             
+             {/* LIEN ADMIN MOBILE */}
+             <Link 
+                href="/studio" 
+                target="_blank"
+                onClick={() => setIsOpen(false)} 
+                className="text-lg font-medium text-gray-500 flex items-center gap-2 pt-4 border-t border-gray-800"
+             >
+                <IconLock className="w-5 h-5" />
+                <span>Espace Admin</span>
+             </Link>
         </div>
       )}
     </nav>
