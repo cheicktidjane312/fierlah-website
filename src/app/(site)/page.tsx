@@ -66,7 +66,7 @@ export default function HomePage() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500 drop-shadow-[0_0_25px_rgba(0,255,255,0.4)]">
               Création Web
             </span>{" "}
-            <span className="text-white">et Stratégie Digitale</span>
+            <span className="text-white">et Marketing Digital</span>
           </motion.h1>
 
           <motion.p 
