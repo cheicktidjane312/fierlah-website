@@ -16,10 +16,10 @@ const jsonLd = {
   image: 'https://www.fierlah-agency.com/icon.png',
   '@id': 'https://www.fierlah-agency.com',
   url: 'https://www.fierlah-agency.com',
-  telephone: '+221 XX XXX XX XX', // Ton numéro
+  telephone: '+221 78 990 07 90', // Ton numéro
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Ton Quartier',
+    streetAddress: 'Fass',
     addressLocality: 'Dakar',
     addressCountry: 'SN'
   },
@@ -40,6 +40,7 @@ export const metadata: Metadata = {
     siteName: 'FIERLAH Agency',
     locale: 'fr_FR',
     type: 'website',
+    
   },
 }
 export default function RootLayout({
