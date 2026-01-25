@@ -11,11 +11,27 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: {
-    default: "Fierlah Agency | Transformation Digitale & Web au Sénégal",
-    template: "%s | Fierlah Agency"
+    default: 'FIERLAH Agency | Création de Sites Web & Stratégie Digitale',
+    template: '%s | FIERLAH Agency' // Pour les autres pages (ex: "Contact | FIERLAH...")
   },
-  description: "Agence digitale 360° experte en création de sites web.",
-};
+  description: 'Agence digitale experte en création de sites web performants, branding et stratégie marketing. Propulsez votre business avec FIERLAH.',
+  keywords: ['Agence web', 'Création site internet', 'Marketing digital', 'Développeur web', 'Freelance'],
+  openGraph: {
+    title: 'FIERLAH Agency',
+    description: 'Transformez votre vision en réalité digitale.',
+    url: 'https://fierlah-website.vercel.app',
+    siteName: 'FIERLAH Agency',
+    images: [
+      {
+        url: '/images/og-image.jpg', // Une image de partage pour LinkedIn/WhatsApp
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'fr_FR',
+    type: 'website',
+  },
+}
 
 export default function RootLayout({
   children,
