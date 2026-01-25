@@ -12,9 +12,11 @@ export default defineType({
     }),
     defineField({
       name: 'slug',
-      title: 'Slug (URL)',
+      title: 'Slug (URL de la page interne)',
+      description: "Clique sur 'Generate' après avoir mis le titre. C'est ce qui créera l'adresse de la page (ex: /realisations/fierlah-agency)",
       type: 'slug',
       options: { source: 'title', maxLength: 96 },
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'mainImage',
@@ -22,9 +24,17 @@ export default defineType({
       type: 'image',
       options: { hotspot: true },
     }),
+    // 👇 NOUVEAU CHAMP : Pour écrire le contenu de l'étude de cas
+    defineField({
+      name: 'description',
+      title: 'Description détaillée du projet',
+      type: 'array', 
+      of: [{type: 'block'}], // Cela active l'éditeur de texte riche
+    }),
     defineField({
       name: 'link',
-      title: 'Lien du projet (URL)',
+      title: 'Lien vers le site live (Optionnel)',
+      description: "L'URL externe vers le site du client (pour le bouton 'Voir le site')",
       type: 'url',
     }),
     defineField({
