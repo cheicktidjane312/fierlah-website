@@ -2,7 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
-import Counter from "../../components/ui/Counter";
+import Counter from "../../components/ui/Counter"; // Chemin conservé
 
 // --- 1. DÉFINITION DES ICÔNES ---
 const IconWeb = ({ className }: { className?: string }) => (
@@ -24,11 +24,18 @@ const IconPalette = ({ className }: { className?: string }) => (
 );
 
 // --- 2. CONFIGURATION ---
-const stats = [
-  { label: "Projets", value: 10, suffix: "+" },   
-  { label: "Clients", value: 98, suffix: "%" },
-  { label: "Années", value: 2, suffix: "+" },     
-];
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2 }
+  }
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
 
 const services = [
   { 
@@ -48,36 +55,48 @@ const services = [
   },
 ];
 
+const stats = [
+  { label: "Projets", value: 10, suffix: "+" },   
+  { label: "Clients", value: 98, suffix: "%" },
+  { label: "Années", value: 2, suffix: "+" },     
+];
+
+// --- 3. COMPOSANT PRINCIPAL ---
 export default function HomePage() {
   return (
     <main className="bg-gray-50 dark:bg-background text-gray-900 dark:text-white overflow-hidden transition-colors duration-300">
       
       {/* SECTION HERO */}
       <section className="min-h-screen flex items-center justify-center px-4 relative pt-48 pb-20">
+        
+        {/* Décors flottants d'arrière-plan */}
         <motion.div 
-          animate={{ y: [0, -30, 0], rotate: [0, 10, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          animate={{ y: [0, -40, 0], x: [0, 20, 0], rotate: [0, 10, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-1/4 left-10 w-24 h-24 rounded-full border border-primary/20 bg-primary/5 hidden md:block opacity-30 dark:opacity-50 blur-sm"
         />
         <motion.div 
-          animate={{ y: [0, 40, 0], scale: [1, 1.1, 1] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          animate={{ y: [0, 50, 0], scale: [1, 1.2, 1] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           className="absolute bottom-1/4 right-10 w-40 h-40 rounded-full bg-blue-600/10 blur-3xl opacity-60"
         />
 
-        <div className="max-w-5xl text-center space-y-8 relative z-10">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="max-w-5xl text-center space-y-8 relative z-10"
+        >
+          
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            variants={itemVariants}
             className="inline-block px-5 py-2 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-bold tracking-widest uppercase backdrop-blur-md"
           >
             ● Agence Digitale 360°
           </motion.div>
 
           <motion.h1 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }} 
+            variants={itemVariants}
             className="text-5xl md:text-8xl font-black leading-tight text-gray-900 dark:text-white"
           >
             Agence de <br />
@@ -88,18 +107,14 @@ export default function HomePage() {
           </motion.h1>
 
           <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            variants={itemVariants}
             className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-light leading-relaxed"
           >
             Nous créons des expériences numériques d'exception qui propulsent votre entreprise vers de nouveaux sommets. Votre transformation digitale commence ici.
           </motion.p>
 
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            variants={itemVariants}
             className="flex flex-col md:flex-row items-center justify-center gap-6 pt-8"
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -112,13 +127,13 @@ export default function HomePage() {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link 
                   href="/realisations" 
-                  className="inline-block px-10 py-4 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white font-bold rounded-full hover:bg-gray-200 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white transition-all uppercase tracking-wider shadow-sm hover:shadow-md dark:shadow-[0_0_0px_rgba(255,255,255,0)] dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                  className="inline-block px-10 py-4 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white font-bold rounded-full hover:bg-gray-200 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white transition-all uppercase tracking-wider shadow-sm hover:shadow-md"
                 >
                   Voir nos travaux
                 </Link>
             </motion.div>
           </motion.div>
-        </div>
+        </motion.div>
       </section>
 
       {/* SECTION CHIFFRES CLÉS */}
@@ -128,10 +143,10 @@ export default function HomePage() {
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.2, type: "spring", stiffness: 100 }}
                 className="space-y-2"
               >
                 <div className="text-4xl md:text-6xl font-black text-primary flex items-center justify-center drop-shadow-[0_0_10px_rgba(0,255,255,0.3)]">
@@ -164,18 +179,19 @@ export default function HomePage() {
             {services.map((service, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 // CONFIGURATION RENFORCÉE POUR UN FLOTTEMENT VISIBLE
-                animate={{ y: [0, -20, 0] }}
-                transition={{ 
-                  opacity: { duration: 0.8 },
-                  y: {
-                    duration: 5,           // Plus lent pour un effet fluide
-                    repeat: Infinity, 
-                    ease: "easeInOut", 
-                    delay: 1 + (i * 0.1)   // Commence après l'entrée initiale
+                animate={{ 
+                  y: [0, -15, 0],
+                  transition: { 
+                    y: {
+                      duration: 4, 
+                      repeat: Infinity, 
+                      ease: "easeInOut", 
+                      delay: i * 0.5 
+                    }
                   }
                 }}
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
