@@ -48,11 +48,11 @@ export default async function BlogPage() {
               // 👇 ANIMATION D'OSCILLATION AJOUTÉE
               animate={{ y: [0, -20, 0] }}
               transition={{ 
-                delay: i * 0.3, 
+                delay: i * 0.8, 
                 duration: 0.5, // Durée d'apparition de base
                 // Configuration spécifique pour la boucle Y
                 y: {
-                    duration: 5,
+                    duration: 6,
                     repeat: Infinity,
                     ease: "easeInOut",
                     delay: i * 0.2
