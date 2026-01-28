@@ -36,7 +36,7 @@ export default function Navbar() {
           animate={{ y: [0, -5, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         >
-          <Link href="/" className="relative block w-65 h-24">
+          <Link href="/" className="relative block w-80 h-24">
             <Image 
               src="/assets/images/logo-fierlah-neon.png" 
               alt="Fierlah Agency Logo" 
