@@ -27,16 +27,17 @@ export default function Navbar() {
   ];
 
   return (
-    // 👇 FIX COULEURS : bg-gray-50 (jour) / dark:bg-black (nuit) sans lg: pour mobile
     <nav className="fixed top-0 w-full z-50 bg-gray-50/90 dark:bg-black/90 backdrop-blur-xl border-b border-gray-200 dark:border-white/5 h-28 flex items-center shadow-2xl transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 w-full flex items-center justify-between">
         
-        {/* LOGO (Taille XXL conservée) */}
+        {/* LOGO (Taille réduite sur mobile pour libérer le menu) */}
         <motion.div 
           animate={{ y: [0, -5, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          className="shrink-0"
         >
-          <Link href="/" className="relative block w-80 h-24">
+          {/* FIX : w-36 sur mobile, w-80 sur desktop */}
+          <Link href="/" className="relative block w-36 h-12 md:w-80 md:h-24">
             <Image 
               src="/assets/images/logo-fierlah-neon.png" 
               alt="Fierlah Agency Logo" 
@@ -53,7 +54,6 @@ export default function Navbar() {
             <Link 
               key={link.href} 
               href={link.href}
-              // Couleur du texte dynamique : text-gray-900 (jour) / dark:text-gray-300 (nuit)
               className={`text-sm font-semibold tracking-wide transition-all hover:text-primary hover:scale-105 ${
                 pathname === link.href ? "text-primary" : "text-gray-900 dark:text-gray-300"
               }`}
@@ -93,7 +93,7 @@ export default function Navbar() {
         {/* MOBILE HAMBURGER */}
         <div className="md:hidden flex items-center gap-4">
             <ThemeToggle />
-            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-900 dark:text-white text-2xl">
+            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-900 dark:text-white text-2xl p-2">
                 {isOpen ? "✕" : "☰"}
             </button>
         </div>
