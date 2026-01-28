@@ -184,17 +184,17 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 // CONFIGURATION RENFORCÉE POUR UN FLOTTEMENT VISIBLE
                 animate={{ 
-                  y: [0, -15, 0],
+                  y: [0, -25, 0],
                   transition: { 
                     y: {
-                      duration: 4, 
+                      duration: 5, 
                       repeat: Infinity, 
                       ease: "easeInOut", 
-                      delay: i * 0.5 
+                      delay: i * 0.6 
                     }
                   }
                 }}
-                whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
+                whileHover={{ scale: 1.05, transition: { duration: 0.4 } }}
                 className="p-10 rounded-[2.5rem] bg-white dark:bg-surface border border-gray-200 dark:border-white/5 hover:border-primary/40 transition-all duration-500 group shadow-lg dark:shadow-2xl relative overflow-hidden"
               >
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>

@@ -46,16 +46,16 @@ export default async function BlogPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               // 👇 ANIMATION D'OSCILLATION AJOUTÉE
-              animate={{ y: [0, -20, 0] }}
+              animate={{ y: [0, -10, 0] }}
               transition={{ 
-                delay: i * 0.8, 
-                duration: 0.5, // Durée d'apparition de base
+                delay: i * 0.6, 
+                duration: 0.8, // Durée d'apparition de base
                 // Configuration spécifique pour la boucle Y
                 y: {
-                    duration: 6,
+                    duration: 5,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    delay: i * 0.2
+                    delay: i * 0.3
                 }
               }}
             >

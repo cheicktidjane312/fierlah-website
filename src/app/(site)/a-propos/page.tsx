@@ -83,7 +83,7 @@ export default function AboutPage() {
 
       {/* 3. NOS VALEURS */}
       <div className="max-w-6xl mx-auto mb-32">
-        <h2 className="text-3xl font-bold text-center mb-16 text-gray-900 dark:text-white">Mes Valeurs</h2>
+        <h2 className="text-3xl font-bold text-center mb-16 text-gray-900 dark:text-white">Nos Valeurs</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
@@ -130,14 +130,14 @@ export default function AboutPage() {
       <div className="text-center bg-gray-100 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 rounded-3xl p-12 md:p-20 max-w-4xl mx-auto transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 dark:text-white">Envie de discuter de votre vision ?</h2>
         <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-xl mx-auto">
-          Je serais ravi d'échanger avec vous sur vos objectifs, sans engagement.
+          Nous serions ravis d'échanger avec vous sur vos objectifs, sans engagement.
         </p>
         <Link 
           href="/contact" 
           // MODIF: Bouton Noir le jour / Blanc la nuit pour contraster
           className="inline-block px-10 py-4 bg-black dark:bg-white text-white dark:text-black font-bold text-lg rounded-full hover:scale-105 transition-transform shadow-[0_0_20px_rgba(0,0,0,0.2)] dark:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
         >
-          Contactez-moi
+          Contactez-nous
         </Link>
       </div>
 
