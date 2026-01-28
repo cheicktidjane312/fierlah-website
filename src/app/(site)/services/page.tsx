@@ -1,5 +1,7 @@
+"use client"; // 👈 Indispensable pour Framer Motion et corriger l'erreur Runtime
+
 import Link from "next/link";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 
 // --- 1. DÉFINITION DES ICÔNES ---
 
@@ -60,7 +62,7 @@ const servicesList = [
 
 export default function ServicesPage() {
   return (
-    // MODIF: Fond blanc (jour) / Fond noir (nuit)
+    // MODIF: Fond noir par défaut (dark:bg-background), Blanc en mode jour (bg-white)
     <main className="min-h-screen bg-white dark:bg-background text-gray-900 dark:text-white pt-32 pb-20 px-4 md:px-20 transition-colors duration-300">
       
       {/* EN-TÊTE DE PAGE */}
@@ -68,7 +70,6 @@ export default function ServicesPage() {
         <h1 className="text-4xl md:text-6xl font-bold">
           Nos <span className="text-primary drop-shadow-[0_0_10px_rgba(0,255,255,0.5)]">Expertises</span>
         </h1>
-        {/* MODIF: Gris moyen (jour) / Gris clair (nuit) */}
         <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
           Nous combinons technique et créativité pour propulser votre business.
           Découvrez comment nous pouvons vous aider.
@@ -78,10 +79,18 @@ export default function ServicesPage() {
       {/* LISTE DES SERVICES */}
       <div className="grid gap-12 max-w-6xl mx-auto">
         {servicesList.map((service, index) => (
-          <div 
+          <motion.div 
             key={index} 
-            // MODIF: Carte blanche + ombre (jour) / Carte sombre (nuit)
-            className="group relative bg-white dark:bg-surface border border-gray-200 dark:border-gray-800 rounded-3xl p-8 md:p-12 hover:border-primary/50 transition-all duration-300 shadow-md dark:shadow-none hover:shadow-xl dark:hover:shadow-[0_0_30px_rgba(0,255,255,0.05)]"
+            // 👇 ANIMATION D'OSCILLATION AJOUTÉE
+            animate={{ y: [0, -15, 0] }}
+            transition={{ 
+              duration: 5, 
+              repeat: Infinity, 
+              ease: "easeInOut",
+              delay: index * 0.4 
+            }}
+            // MODIF: Carte blanche (jour) / Carte sombre (nuit)
+            className="group relative bg-white dark:bg-surface border border-gray-200 dark:border-gray-800 rounded-3xl p-8 md:p-12 hover:border-primary/50 transition-all duration-300 shadow-lg dark:shadow-none hover:shadow-xl dark:hover:shadow-[0_0_30px_rgba(0,255,255,0.05)]"
           >
             <div className="flex flex-col md:flex-row gap-8 items-start">
               
@@ -92,11 +101,9 @@ export default function ServicesPage() {
 
               {/* Contenu Texte */}
               <div className="flex-1 space-y-4">
-                {/* MODIF: Titre noir (jour) / Blanc (nuit) */}
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
                   {service.title}
                 </h2>
-                {/* MODIF: Gris foncé (jour) / Gris clair (nuit) */}
                 <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
                   {service.description}
                 </p>
@@ -104,7 +111,6 @@ export default function ServicesPage() {
                 {/* Liste des fonctionnalités */}
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4">
                   {service.features.map((feature, idx) => (
-                    // MODIF: Gris moyen (jour) / Gris clair (nuit)
                     <li key={idx} className="flex items-center text-sm text-gray-600 dark:text-gray-300">
                       <span className="w-2 h-2 bg-primary rounded-full mr-3" />
                       {feature}
@@ -117,7 +123,6 @@ export default function ServicesPage() {
               <div className="self-start md:self-center shrink-0">
                 <Link 
                   href="/contact" 
-                  // MODIF: Bouton avec bordure grise adaptée
                   className="inline-block px-6 py-3 border border-gray-300 dark:border-gray-700 rounded-full hover:bg-primary hover:text-black hover:border-primary transition-all font-medium text-gray-900 dark:text-white"
                 >
                   Demander un devis
@@ -125,20 +130,21 @@ export default function ServicesPage() {
               </div>
 
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
       {/* BANNIÈRE BAS DE PAGE */}
-      {/* MODIF: Fond gris clair (jour) / Dégradé sombre (nuit) */}
-      <div className="mt-24 text-center bg-gray-50 dark:bg-gradient-to-r dark:from-primary/10 dark:to-blue-600/10 border border-gray-200 dark:border-primary/20 rounded-3xl p-12 transition-colors">
+      {/* MODIF: Fond sombre par défaut (dark:bg-surface), clair en mode jour */}
+      <div className="mt-24 text-center bg-gray-50 dark:bg-surface border border-gray-200 dark:border-gray-800 rounded-3xl p-12 transition-colors relative overflow-hidden">
+        <div className="absolute inset-0 dark:bg-gradient-to-r dark:from-primary/5 dark:to-blue-600/5 pointer-events-none"></div>
         <h3 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Un projet spécifique en tête ?</h3>
         <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
           Nous faisons aussi du développement sur-mesure et du conseil stratégique.
         </p>
         <Link 
           href="/contact" 
-          className="px-8 py-4 bg-primary text-black font-bold rounded-full hover:scale-105 transition-transform shadow-[0_0_20px_rgba(0,255,255,0.4)]"
+          className="px-8 py-4 bg-primary text-black font-bold rounded-full hover:scale-105 transition-transform shadow-[0_0_20px_rgba(0,255,255,0.4)] relative z-10"
         >
           Discutons-en
         </Link>
