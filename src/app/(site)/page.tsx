@@ -172,10 +172,10 @@ export default function HomePage() {
                 transition={{ 
                   opacity: { duration: 0.8 },
                   y: {
-                    duration: 6,           // Plus lent pour un effet fluide
+                    duration: 5,           // Plus lent pour un effet fluide
                     repeat: Infinity, 
                     ease: "easeInOut", 
-                    delay: 1 + (i * 0.8)   // Commence après l'entrée initiale
+                    delay: 1 + (i * 0.1)   // Commence après l'entrée initiale
                   }
                 }}
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
