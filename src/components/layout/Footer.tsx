@@ -52,10 +52,11 @@ export const revalidate = 0;
 export default async function Footer() {
   const settings = await getSettings();
   const currentYear = new Date().getFullYear();
-console.log("Données Sanity :", settings?.socialLinks);
+  console.log("Données Sanity :", settings?.socialLinks);
+
   return (
-    // Fond noir par défaut (mode sombre), Fond gris très clair en mode jour
-    <footer className="bg-black dark:bg-black lg:bg-gray-50 dark:lg:bg-black border-t border-gray-900 dark:border-gray-900 lg:border-gray-200 text-gray-400 dark:text-gray-400 lg:text-gray-600 pt-16 pb-8 transition-colors duration-300">
+    // Fond Gris clair par défaut (Mode Jour), Noir en Mode Sombre (dark:)
+    <footer className="bg-gray-50 dark:bg-black border-t border-gray-200 dark:border-gray-900 text-gray-600 dark:text-gray-400 pt-16 pb-8 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
@@ -63,8 +64,8 @@ console.log("Données Sanity :", settings?.socialLinks);
           {/* COLONNE 1 */}
           <div className="space-y-6">
             <div>
-                {/* Texte blanc par défaut, noir en mode jour */}
-                <Link href="/" className="text-2xl font-bold text-white lg:text-gray-900 dark:lg:text-white tracking-tighter">
+                {/* Texte Noir en Mode Jour, Blanc en Mode Sombre */}
+                <Link href="/" className="text-2xl font-bold text-gray-900 dark:text-white tracking-tighter">
                 FIERLAH<span className="text-primary">.</span>
                 </Link>
                 <p className="text-sm leading-relaxed mt-4">
@@ -75,17 +76,17 @@ console.log("Données Sanity :", settings?.socialLinks);
             {settings?.socialLinks && (
                 <div className="flex items-center space-x-5">
                     {settings.socialLinks.instagram && (
-                        <a href={settings.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#E1306C] transition-colors" title="Instagram">
+                        <a href={settings.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#E1306C] transition-colors" title="Instagram">
                             <IconInstagram className="w-5 h-5" />
                         </a>
                     )}
                     {settings.socialLinks.facebook && (
-                        <a href={settings.socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#1877F2] transition-colors" title="Facebook">
+                        <a href={settings.socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#1877F2] transition-colors" title="Facebook">
                             <IconFacebook className="w-5 h-5" />
                         </a>
                     )}
                     {settings.socialLinks.linkedin && (
-                        <a href={settings.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#0077B5] transition-colors" title="LinkedIn">
+                        <a href={settings.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#0077B5] transition-colors" title="LinkedIn">
                             <IconLinkedin className="w-5 h-5" />
                         </a>
                     )}
@@ -95,7 +96,7 @@ console.log("Données Sanity :", settings?.socialLinks);
 
           {/* COLONNE 2 */}
           <div>
-            <h3 className="text-white lg:text-gray-900 dark:lg:text-white font-bold mb-4">Agence</h3>
+            <h3 className="text-gray-900 dark:text-white font-bold mb-4">Agence</h3>
             <ul className="space-y-2 text-sm">
               <li><Link href="/a-propos" className="hover:text-primary transition-colors">À Propos</Link></li>
               <li><Link href="/realisations" className="hover:text-primary transition-colors">Réalisations</Link></li>
@@ -106,7 +107,7 @@ console.log("Données Sanity :", settings?.socialLinks);
 
           {/* COLONNE 3 */}
           <div>
-            <h3 className="text-white lg:text-gray-900 dark:lg:text-white font-bold mb-4">Expertise</h3>
+            <h3 className="text-gray-900 dark:text-white font-bold mb-4">Expertise</h3>
             <ul className="space-y-2 text-sm">
               <li><Link href="/services" className="hover:text-primary transition-colors">Création de Site Web</Link></li>
               <li><Link href="/services" className="hover:text-primary transition-colors">Publicité (Ads)</Link></li>
@@ -117,7 +118,7 @@ console.log("Données Sanity :", settings?.socialLinks);
 
           {/* COLONNE 4 */}
           <div>
-            <h3 className="text-white lg:text-gray-900 dark:lg:text-white font-bold mb-4">Contact</h3>
+            <h3 className="text-gray-900 dark:text-white font-bold mb-4">Contact</h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start">
                 <span className="mr-2 text-primary mt-0.5">
@@ -129,7 +130,7 @@ console.log("Données Sanity :", settings?.socialLinks);
                 <span className="mr-2 text-primary">
                     <IconMail className="w-5 h-5" />
                 </span>
-                <a href={`mailto:${settings?.email}`} className="hover:text-primary lg:hover:text-gray-900 dark:lg:hover:text-white transition-colors">
+                <a href={`mailto:${settings?.email}`} className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">
                   {settings?.email || "contact@fierlah.com"}
                 </a>
               </li>
@@ -137,7 +138,7 @@ console.log("Données Sanity :", settings?.socialLinks);
                 <span className="mr-2 text-primary">
                     <IconPhone className="w-5 h-5" />
                 </span>
-                <a href={`tel:${settings?.phone}`} className="hover:text-primary lg:hover:text-gray-900 dark:lg:hover:text-white transition-colors">
+                <a href={`tel:${settings?.phone}`} className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">
                   {settings?.phone || "+221 77 000 00 00"}
                 </a>
               </li>
@@ -147,10 +148,10 @@ console.log("Données Sanity :", settings?.socialLinks);
         </div>
 
         {/* BARRE DE COPYRIGHT */}
-        <div className="border-t border-gray-900 lg:border-gray-200 dark:lg:border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
+        <div className="border-t border-gray-200 dark:border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
           <p>&copy; {currentYear} Fierlah Agency. Tous droits réservés.</p>
           <div className="mt-4 md:mt-0">
-            <Link href="/politique-confidentialite" className="hover:text-white lg:hover:text-gray-900 dark:lg:hover:text-white transition-colors">
+            <Link href="/politique-confidentialite" className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">
               Politique de Confidentialité
             </Link>
           </div>
