@@ -15,16 +15,17 @@ export default async function ProjectDetails({ params }: { params: { slug: strin
   const project = await getProject(params.slug);
 
   if (!project) {
-    return <div className="text-white text-center pt-40">Projet introuvable.</div>;
+    return <div className="text-gray-900 dark:text-white text-center pt-40">Projet introuvable.</div>;
   }
 
   return (
-    <main className="min-h-screen bg-background text-white pt-32 pb-20 px-4 md:px-20">
+    // FIX: Fond blanc (jour) / Fond sombre (nuit) + Texte gris foncé (jour) / Blanc (nuit)
+    <main className="min-h-screen bg-white dark:bg-background text-gray-900 dark:text-white pt-32 pb-20 px-4 md:px-20 transition-colors duration-300">
       
       <div className="max-w-4xl mx-auto">
         
-        {/* Bouton Retour */}
-        <Link href="/realisations" className="text-gray-400 hover:text-primary mb-8 inline-block transition-colors">
+        {/* Bouton Retour - Couleur adaptée */}
+        <Link href="/realisations" className="text-gray-600 dark:text-gray-400 hover:text-primary mb-8 inline-block transition-colors">
           ← Retour aux réalisations
         </Link>
 
@@ -36,9 +37,9 @@ export default async function ProjectDetails({ params }: { params: { slug: strin
             <h1 className="text-4xl md:text-6xl font-bold mt-2 mb-6">{project.title}</h1>
         </div>
 
-        {/* Image Principale (Grande) */}
+        {/* Image Principale - Bordure adaptée */}
         {project.mainImage && (
-          <div className="relative w-full h-[300px] md:h-[500px] rounded-2xl overflow-hidden mb-12 border border-gray-800 shadow-2xl">
+          <div className="relative w-full h-[300px] md:h-[500px] rounded-2xl overflow-hidden mb-12 border border-gray-200 dark:border-gray-800 shadow-2xl">
             <Image
               src={urlFor(project.mainImage).url()}
               alt={project.title}
@@ -49,8 +50,8 @@ export default async function ProjectDetails({ params }: { params: { slug: strin
           </div>
         )}
 
-        {/* Contenu (Description Riche) */}
-        <div className="prose prose-invert prose-lg max-w-none mb-12">
+        {/* Contenu - Utilisation de prose pour le mode jour et dark:prose-invert pour la nuit */}
+        <div className="prose dark:prose-invert prose-lg max-w-none mb-12 text-gray-700 dark:text-gray-300">
             {/* Si une description existe, on l'affiche avec PortableText */}
             {project.description ? (
                 <PortableText value={project.description} />
@@ -59,9 +60,9 @@ export default async function ProjectDetails({ params }: { params: { slug: strin
             )}
         </div>
 
-        {/* Bouton vers le site externe (si le lien existe) */}
+        {/* Bouton vers le site externe - Bordure de séparation adaptée */}
         {project.link && (
-            <div className="mt-8 pt-8 border-t border-gray-800">
+            <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800">
                 <a 
                     href={project.link} 
                     target="_blank" 
