@@ -2,10 +2,9 @@
 
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
-import Counter from "../../components/ui/Counter"; // Assure-toi que ce chemin est bon chez toi, sinon ajuste-le.
+import Counter from "../../components/ui/Counter";
 
-// --- 1. DÉFINITION DES ICÔNES DIRECTEMENT ICI (Plus d'erreur d'import !) ---
-
+// --- 1. DÉFINITION DES ICÔNES ---
 const IconWeb = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
@@ -25,21 +24,16 @@ const IconPalette = ({ className }: { className?: string }) => (
 );
 
 // --- 2. CONFIGURATION ---
-
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 1, ease: "easeOut" }
-  }
-};
+const stats = [
+  { label: "Projets", value: 10, suffix: "+" },   
+  { label: "Clients", value: 98, suffix: "%" },
+  { label: "Années", value: 2, suffix: "+" },     
+];
 
 const services = [
   { 
     title: "Développement Web", 
     desc: "Sites performants et sur-mesure.", 
-    // Utilisation directe du composant SVG défini au-dessus
     icon: <IconWeb className="w-12 h-12 text-blue-500" /> 
   },
   { 
@@ -54,26 +48,16 @@ const services = [
   },
 ];
 
-const stats = [
-  { label: "Projets", value: 10, suffix: "+" },   
-  { label: "Clients", value: 98, suffix: "%" },
-  { label: "Années", value: 2, suffix: "+" },     
-];
-
-// --- 3. COMPOSANT PRINCIPAL ---
-
 export default function HomePage() {
   return (
-    <main className="bg-background text-white overflow-hidden">
+    <main className="bg-gray-50 dark:bg-background text-gray-900 dark:text-white overflow-hidden transition-colors duration-300">
       
       {/* SECTION HERO */}
       <section className="min-h-screen flex items-center justify-center px-4 relative pt-48 pb-20">
-        
-        {/* Décors flottants d'arrière-plan */}
         <motion.div 
           animate={{ y: [0, -30, 0], rotate: [0, 10, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 left-10 w-24 h-24 rounded-full border border-primary/20 blur-sm hidden md:block opacity-50"
+          className="absolute top-1/4 left-10 w-24 h-24 rounded-full border border-primary/20 bg-primary/5 hidden md:block opacity-30 dark:opacity-50 blur-sm"
         />
         <motion.div 
           animate={{ y: [0, 40, 0], scale: [1, 1.1, 1] }}
@@ -82,9 +66,9 @@ export default function HomePage() {
         />
 
         <div className="max-w-5xl text-center space-y-8 relative z-10">
-          
           <motion.div
-            initial="hidden" animate="visible" variants={fadeInUp}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             className="inline-block px-5 py-2 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-bold tracking-widest uppercase backdrop-blur-md"
           >
             ● Agence Digitale 360°
@@ -94,29 +78,30 @@ export default function HomePage() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }} 
-            className="text-5xl md:text-8xl font-black leading-tight"
+            className="text-5xl md:text-8xl font-black leading-tight text-gray-900 dark:text-white"
           >
             Agence de <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500 drop-shadow-[0_0_25px_rgba(0,255,255,0.4)]">
               Création Web
             </span>{" "}
-            <span className="text-white">et Marketing Digital</span>
+            <span className="text-gray-900 dark:text-white">et Marketing Digital</span>
           </motion.h1>
 
           <motion.p 
-            initial="hidden" animate="visible" variants={fadeInUp}
-            className="text-xl text-gray-300 max-w-2xl mx-auto font-light leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-light leading-relaxed"
           >
-            Nous créons des expériences numériques d'exception qui propulsent votre entreprise vers de nouveaux sommets.Votre transformation digitale commence ici.
+            Nous créons des expériences numériques d'exception qui propulsent votre entreprise vers de nouveaux sommets. Votre transformation digitale commence ici.
           </motion.p>
 
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.4 }}
             className="flex flex-col md:flex-row items-center justify-center gap-6 pt-8"
           >
-            {/* BOUTON 1 */}
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link href="/contact" className="group relative inline-flex items-center justify-center px-10 py-4 bg-primary text-black font-black rounded-full overflow-hidden shadow-[0_0_20px_rgba(0,255,255,0.4)] transition-all">
                    <span className="relative z-10 uppercase tracking-wider">Démarrer un projet</span>
@@ -124,9 +109,11 @@ export default function HomePage() {
                 </Link>
             </motion.div>
             
-            {/* BOUTON 2 */}
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link href="/realisations" className="inline-block px-10 py-4 border border-gray-600 text-white font-bold rounded-full hover:bg-white/10 hover:border-white transition-all uppercase tracking-wider shadow-[0_0_0px_rgba(255,255,255,0)] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                <Link 
+                  href="/realisations" 
+                  className="inline-block px-10 py-4 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white font-bold rounded-full hover:bg-gray-200 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white transition-all uppercase tracking-wider shadow-sm hover:shadow-md dark:shadow-[0_0_0px_rgba(255,255,255,0)] dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                >
                   Voir nos travaux
                 </Link>
             </motion.div>
@@ -135,7 +122,7 @@ export default function HomePage() {
       </section>
 
       {/* SECTION CHIFFRES CLÉS */}
-      <section className="py-24 bg-surface/30 border-y border-white/5 backdrop-blur-sm">
+      <section className="py-24 bg-white dark:bg-surface/30 border-y border-gray-200 dark:border-white/5 backdrop-blur-sm transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
             {stats.map((stat, index) => (
@@ -151,7 +138,7 @@ export default function HomePage() {
                   <Counter value={stat.value} />
                   <span>{stat.suffix}</span>
                 </div>
-                <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">
+                <p className="text-gray-500 dark:text-gray-400 font-bold uppercase tracking-widest text-xs">
                   {stat.label}
                 </p>
               </motion.div>
@@ -169,7 +156,7 @@ export default function HomePage() {
              viewport={{ once: true }}
              className="mb-20 text-center space-y-4"
           >
-            <h2 className="text-3xl md:text-5xl font-black">Nos expertises <span className="text-primary">clés</span></h2>
+            <h2 className="text-3xl md:text-5xl font-black text-gray-900 dark:text-white">Nos expertises <span className="text-primary">clés</span></h2>
             <div className="h-1.5 w-24 bg-gradient-to-r from-primary to-blue-600 mx-auto rounded-full"></div>
           </motion.div>
 
@@ -177,26 +164,32 @@ export default function HomePage() {
             {services.map((service, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.2 }}
-                whileHover={{ y: -15, boxShadow: "0px 10px 30px -10px rgba(0, 255, 255, 0.2)" }}
-                className="p-10 rounded-[2.5rem] bg-surface border border-white/5 hover:border-primary/40 transition-all duration-500 group shadow-2xl relative overflow-hidden"
+                // CONFIGURATION RENFORCÉE POUR UN FLOTTEMENT VISIBLE
+                animate={{ y: [0, -20, 0] }}
+                transition={{ 
+                  opacity: { duration: 0.8 },
+                  y: {
+                    duration: 6,           // Plus lent pour un effet fluide
+                    repeat: Infinity, 
+                    ease: "easeInOut", 
+                    delay: 1 + (i * 0.8)   // Commence après l'entrée initiale
+                  }
+                }}
+                whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
+                className="p-10 rounded-[2.5rem] bg-white dark:bg-surface border border-gray-200 dark:border-white/5 hover:border-primary/40 transition-all duration-500 group shadow-lg dark:shadow-2xl relative overflow-hidden"
               >
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
-                
-                {/* L'icône s'affiche ici */}
                 <div className="mb-6">{service.icon}</div>
-                
-                <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">{service.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{service.desc}</p>
+                <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white group-hover:text-primary transition-colors">{service.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{service.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
-
     </main>
   );
 }

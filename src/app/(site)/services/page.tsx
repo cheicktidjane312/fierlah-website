@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 
-// --- 1. DÉFINITION DES ICÔNES DIRECTEMENT ICI ---
+// --- 1. DÉFINITION DES ICÔNES ---
 
 const IconWeb = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
@@ -27,44 +27,31 @@ const IconPalette = ({ className }: { className?: string }) => (
   </svg>
 );
 
-// --- 2. CONFIGURATION & DATA (Emojis remplacés) ---
-
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.8, ease: "easeOut" }
-  }
-};
+// --- 2. CONFIGURATION ---
 
 const servicesList = [
   {
     title: "Création de Site Web",
     description: "Vitrine, E-commerce ou sur-mesure. Nous développons des sites rapides, sécurisés et optimisés pour le référencement (SEO).",
     features: ["Design Responsive (Mobile & PC)", "Optimisation Google (SEO)", "Vitesse de chargement ultra-rapide", "Interface d'administration facile"],
-    // Remplacement emoji 💻
     icon: <IconWeb className="w-8 h-8 text-blue-500" />
   },
   {
     title: "Publicité en Ligne (Ads)",
     description: "Boostez votre visibilité immédiatement sur Facebook, Instagram et Google. Nous gérons vos campagnes pour maximiser le retour sur investissement.",
     features: ["Ciblage précis de l'audience", "Création des visuels publicitaires", "Suivi des conversions (Pixel)", "Rapports de performance mensuels"],
-    // Remplacement emoji 🚀
     icon: <IconRocket className="w-8 h-8 text-orange-500" />
   },
   {
     title: "SEO & Référencement Naturel",
     description: "Apparaissez en premier sur Google. Une stratégie long terme pour attirer du trafic qualifié sans payer de publicité à chaque clic.",
     features: ["Audit technique complet", "Stratégie de mots-clés", "Optimisation du contenu", "Netlinking & popularité"],
-    // Remplacement emoji 🔍
     icon: <IconSearch className="w-8 h-8 text-green-500" />
   },
   {
     title: "Identité Visuelle & Branding",
     description: "Ne passez pas inaperçu. Du logo à la charte graphique complète, nous créons une image de marque qui inspire confiance.",
     features: ["Création de Logo unique", "Charte graphique complète", "Design de cartes de visite", "Visuels pour réseaux sociaux"],
-    // Remplacement emoji 🎨
     icon: <IconPalette className="w-8 h-8 text-purple-500" />
   }
 ];
@@ -73,14 +60,16 @@ const servicesList = [
 
 export default function ServicesPage() {
   return (
-    <main className="min-h-screen bg-background text-white pt-32 pb-20 px-4 md:px-20">
+    // MODIF: Fond blanc (jour) / Fond noir (nuit)
+    <main className="min-h-screen bg-white dark:bg-background text-gray-900 dark:text-white pt-32 pb-20 px-4 md:px-20 transition-colors duration-300">
       
       {/* EN-TÊTE DE PAGE */}
       <div className="text-center mb-20 space-y-6">
         <h1 className="text-4xl md:text-6xl font-bold">
           Nos <span className="text-primary drop-shadow-[0_0_10px_rgba(0,255,255,0.5)]">Expertises</span>
         </h1>
-        <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+        {/* MODIF: Gris moyen (jour) / Gris clair (nuit) */}
+        <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
           Nous combinons technique et créativité pour propulser votre business.
           Découvrez comment nous pouvons vous aider.
         </p>
@@ -91,7 +80,8 @@ export default function ServicesPage() {
         {servicesList.map((service, index) => (
           <div 
             key={index} 
-            className="group relative bg-surface border border-gray-800 rounded-3xl p-8 md:p-12 hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,255,255,0.05)]"
+            // MODIF: Carte blanche + ombre (jour) / Carte sombre (nuit)
+            className="group relative bg-white dark:bg-surface border border-gray-200 dark:border-gray-800 rounded-3xl p-8 md:p-12 hover:border-primary/50 transition-all duration-300 shadow-md dark:shadow-none hover:shadow-xl dark:hover:shadow-[0_0_30px_rgba(0,255,255,0.05)]"
           >
             <div className="flex flex-col md:flex-row gap-8 items-start">
               
@@ -102,17 +92,20 @@ export default function ServicesPage() {
 
               {/* Contenu Texte */}
               <div className="flex-1 space-y-4">
-                <h2 className="text-3xl font-bold text-white group-hover:text-primary transition-colors">
+                {/* MODIF: Titre noir (jour) / Blanc (nuit) */}
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
                   {service.title}
                 </h2>
-                <p className="text-gray-400 text-lg leading-relaxed">
+                {/* MODIF: Gris foncé (jour) / Gris clair (nuit) */}
+                <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
                   {service.description}
                 </p>
                 
-                {/* Liste des fonctionnalités (Bullet points) */}
+                {/* Liste des fonctionnalités */}
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4">
                   {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-gray-300">
+                    // MODIF: Gris moyen (jour) / Gris clair (nuit)
+                    <li key={idx} className="flex items-center text-sm text-gray-600 dark:text-gray-300">
                       <span className="w-2 h-2 bg-primary rounded-full mr-3" />
                       {feature}
                     </li>
@@ -124,7 +117,8 @@ export default function ServicesPage() {
               <div className="self-start md:self-center shrink-0">
                 <Link 
                   href="/contact" 
-                  className="inline-block px-6 py-3 border border-gray-700 rounded-full hover:bg-primary hover:text-black hover:border-primary transition-all font-medium"
+                  // MODIF: Bouton avec bordure grise adaptée
+                  className="inline-block px-6 py-3 border border-gray-300 dark:border-gray-700 rounded-full hover:bg-primary hover:text-black hover:border-primary transition-all font-medium text-gray-900 dark:text-white"
                 >
                   Demander un devis
                 </Link>
@@ -136,9 +130,10 @@ export default function ServicesPage() {
       </div>
 
       {/* BANNIÈRE BAS DE PAGE */}
-      <div className="mt-24 text-center bg-gradient-to-r from-primary/10 to-blue-600/10 border border-primary/20 rounded-3xl p-12">
-        <h3 className="text-3xl font-bold mb-4">Un projet spécifique en tête ?</h3>
-        <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+      {/* MODIF: Fond gris clair (jour) / Dégradé sombre (nuit) */}
+      <div className="mt-24 text-center bg-gray-50 dark:bg-gradient-to-r dark:from-primary/10 dark:to-blue-600/10 border border-gray-200 dark:border-primary/20 rounded-3xl p-12 transition-colors">
+        <h3 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Un projet spécifique en tête ?</h3>
+        <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
           Nous faisons aussi du développement sur-mesure et du conseil stratégique.
         </p>
         <Link 

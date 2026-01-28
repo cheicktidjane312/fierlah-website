@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
+// 👇 IMPORTATIONS CORRIGÉES (Chemins relatifs)
+import AnimatedBackground from "../components/AnimatedBackground";
+import { ThemeProvider } from "../components/ThemeProvider";
 
 // Configuration de la police
 const outfit = Outfit({ 
@@ -10,12 +13,11 @@ const outfit = Outfit({
 });
 
 // --- OPTIMISATION SEO (SCHEMA.ORG) ---
-// C'est ce script qui dit à Google : "Je suis une entreprise locale légitime"
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'ProfessionalService', // Plus précis que LocalBusiness pour une agence
+  '@type': 'ProfessionalService', 
   name: 'FIERLAH Agency',
-  image: 'https://www.fierlah-agency.com/opengraph-image.png', // Idéalement une image de couverture
+  image: 'https://www.fierlah-agency.com/opengraph-image.png', 
   description: 'Agence digitale experte en création de sites web modernes, stratégies SEO et branding à Dakar.',
   '@id': 'https://www.fierlah-agency.com',
   url: 'https://www.fierlah-agency.com',
@@ -29,7 +31,7 @@ const jsonLd = {
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: 14.6928, // Coordonnées approx de Dakar (aide pour Google Maps)
+    latitude: 14.6928, 
     longitude: -17.4467
   },
   openingHoursSpecification: [
@@ -50,7 +52,6 @@ const jsonLd = {
   ],
   priceRange: '$$',
   sameAs: [
-    // Ajoute ici tes réseaux sociaux si tu en as
     "https://www.instagram.com/fierlah_agency",
     "https://www.facebook.com/fierlah_agency" 
   ]
@@ -79,16 +80,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className="scroll-smooth">
-      <body className={`${outfit.className} bg-background text-white antialiased overflow-x-hidden`} suppressHydrationWarning={true}>
+    // 👇 suppressHydrationWarning est OBLIGATOIRE pour le mode sombre
+    <html lang="fr" className="scroll-smooth" suppressHydrationWarning>
+      
+      {/* J'ai adapté les couleurs ici : Blanc par défaut, Noir (ton background) en mode Dark */}
+      <body className={`${outfit.className} bg-white dark:bg-background text-black dark:text-white antialiased overflow-x-hidden`}>
         
-        {/* 👇 C'EST ICI QUE LA MAGIE OPÈRE : Injection du JSON-LD pour Google */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        
-        {children}
+        {/* 👇 Le Provider englobe tout pour gérer le changement de thème */}
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="dark" // On démarre en mode sombre par défaut
+            enableSystem
+            disableTransitionOnChange
+        >
+            {/* Le fond animé (Filet + Lueurs) */}
+            <AnimatedBackground />
+
+            {/* Script SEO JSON-LD */}
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            
+            {children}
+        </ThemeProvider>
+
       </body>
     </html >
   );
