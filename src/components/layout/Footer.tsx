@@ -52,93 +52,99 @@ export const revalidate = 0;
 export default async function Footer() {
   const settings = await getSettings();
   const currentYear = new Date().getFullYear();
-  console.log("Données Sanity :", settings?.socialLinks);
 
   return (
-    // Fond Gris clair par défaut (Mode Jour), Noir en Mode Sombre (dark:)
-    <footer className="bg-gray-50 dark:bg-black border-t border-gray-200 dark:border-gray-900 text-gray-600 dark:text-gray-400 pt-16 pb-8 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    // Fond Monolithique : Blanc pur (Jour) / Noir pur (Nuit)
+    // Le "border-t" est remplacé par un effet laser personnalisé plus bas
+    <footer className="relative bg-white dark:bg-black text-gray-600 dark:text-gray-400 pt-20 pb-10 overflow-hidden transition-colors duration-300">
+      
+      {/* EFFET LASER HAUT DE PAGE */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent shadow-[0_0_15px_var(--primary)]"></div>
+      
+      {/* Lueur d'ambiance en fond (Spotlight statique) */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           
-          {/* COLONNE 1 */}
+          {/* COLONNE 1 : IDENTITÉ */}
           <div className="space-y-6">
             <div>
-                {/* Texte Noir en Mode Jour, Blanc en Mode Sombre */}
-                <Link href="/" className="text-2xl font-bold text-gray-900 dark:text-white tracking-tighter">
-                FIERLAH<span className="text-primary">.</span>
+                <Link href="/" className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">
+                  FIERLAH<span className="text-primary drop-shadow-neon">.</span>
                 </Link>
-                <p className="text-sm leading-relaxed mt-4">
-                Agence digitale spécialisée dans la création de sites web performants et la publicité en ligne. Nous transformons vos visiteurs en clients.
+                <p className="text-sm leading-relaxed mt-4 max-w-xs">
+                  Agence digitale spécialisée dans la création de sites web performants et la publicité en ligne.
                 </p>
             </div>
 
             {settings?.socialLinks && (
                 <div className="flex items-center space-x-5">
                     {settings.socialLinks.instagram && (
-                        <a href={settings.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#E1306C] transition-colors" title="Instagram">
-                            <IconInstagram className="w-5 h-5" />
+                        <a href={settings.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#E1306C] hover:scale-110 transition-all duration-300" title="Instagram">
+                            <IconInstagram className="w-6 h-6" />
                         </a>
                     )}
                     {settings.socialLinks.facebook && (
-                        <a href={settings.socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#1877F2] transition-colors" title="Facebook">
-                            <IconFacebook className="w-5 h-5" />
+                        <a href={settings.socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#1877F2] hover:scale-110 transition-all duration-300" title="Facebook">
+                            <IconFacebook className="w-6 h-6" />
                         </a>
                     )}
                     {settings.socialLinks.linkedin && (
-                        <a href={settings.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#0077B5] transition-colors" title="LinkedIn">
-                            <IconLinkedin className="w-5 h-5" />
+                        <a href={settings.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#0077B5] hover:scale-110 transition-all duration-300" title="LinkedIn">
+                            <IconLinkedin className="w-6 h-6" />
                         </a>
                     )}
                 </div>
             )}
           </div>
 
-          {/* COLONNE 2 */}
+          {/* COLONNE 2 : AGENCE */}
           <div>
-            <h3 className="text-gray-900 dark:text-white font-bold mb-4">Agence</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/a-propos" className="hover:text-primary transition-colors">À Propos</Link></li>
-              <li><Link href="/realisations" className="hover:text-primary transition-colors">Réalisations</Link></li>
-              <li><Link href="/services" className="hover:text-primary transition-colors">Services</Link></li>
-              <li><Link href="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
-            </ul>
-          </div>
-
-          {/* COLONNE 3 */}
-          <div>
-            <h3 className="text-gray-900 dark:text-white font-bold mb-4">Expertise</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/services" className="hover:text-primary transition-colors">Création de Site Web</Link></li>
-              <li><Link href="/services" className="hover:text-primary transition-colors">Publicité (Ads)</Link></li>
-              <li><Link href="/services" className="hover:text-primary transition-colors">SEO & Référencement</Link></li>
-              <li><Link href="/services" className="hover:text-primary transition-colors">Branding</Link></li>
-            </ul>
-          </div>
-
-          {/* COLONNE 4 */}
-          <div>
-            <h3 className="text-gray-900 dark:text-white font-bold mb-4">Contact</h3>
+            <h3 className="text-gray-900 dark:text-white font-bold mb-6 tracking-wide">AGENCE</h3>
             <ul className="space-y-3 text-sm">
-              <li className="flex items-start">
-                <span className="mr-2 text-primary mt-0.5">
+              <li><Link href="/a-propos" className="hover:text-primary transition-all duration-300 hover:translate-x-2 inline-block">À Propos</Link></li>
+              <li><Link href="/realisations" className="hover:text-primary transition-all duration-300 hover:translate-x-2 inline-block">Réalisations</Link></li>
+              <li><Link href="/services" className="hover:text-primary transition-all duration-300 hover:translate-x-2 inline-block">Services</Link></li>
+              <li><Link href="/blog" className="hover:text-primary transition-all duration-300 hover:translate-x-2 inline-block">Blog</Link></li>
+            </ul>
+          </div>
+
+          {/* COLONNE 3 : EXPERTISE */}
+          <div>
+            <h3 className="text-gray-900 dark:text-white font-bold mb-6 tracking-wide">EXPERTISE</h3>
+            <ul className="space-y-3 text-sm">
+              <li><Link href="/services" className="hover:text-primary transition-all duration-300 hover:translate-x-2 inline-block">Création Web</Link></li>
+              <li><Link href="/services" className="hover:text-primary transition-all duration-300 hover:translate-x-2 inline-block">Publicité (Ads)</Link></li>
+              <li><Link href="/services" className="hover:text-primary transition-all duration-300 hover:translate-x-2 inline-block">SEO & Google</Link></li>
+              <li><Link href="/services" className="hover:text-primary transition-all duration-300 hover:translate-x-2 inline-block">Branding</Link></li>
+            </ul>
+          </div>
+
+          {/* COLONNE 4 : CONTACT */}
+          <div>
+            <h3 className="text-gray-900 dark:text-white font-bold mb-6 tracking-wide">CONTACT</h3>
+            <ul className="space-y-4 text-sm">
+              <li className="flex items-start group">
+                <span className="mr-3 text-primary mt-0.5 group-hover:scale-110 transition-transform">
                     <IconMapPin className="w-5 h-5" />
                 </span>
                 <span>{settings?.address || "Dakar, Sénégal"}</span>
               </li>
-              <li className="flex items-center">
-                <span className="mr-2 text-primary">
+              <li className="flex items-center group">
+                <span className="mr-3 text-primary group-hover:scale-110 transition-transform">
                     <IconMail className="w-5 h-5" />
                 </span>
-                <a href={`mailto:${settings?.email}`} className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">
+                <a href={`mailto:${settings?.email}`} className="text-gray-600 dark:text-gray-400 hover:text-white transition-colors">
                   {settings?.email || "contact@fierlah.com"}
                 </a>
               </li>
-              <li className="flex items-center">
-                <span className="mr-2 text-primary">
+              <li className="flex items-center group">
+                <span className="mr-3 text-primary group-hover:scale-110 transition-transform">
                     <IconPhone className="w-5 h-5" />
                 </span>
-                <a href={`tel:${settings?.phone}`} className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">
+                <a href={`tel:${settings?.phone}`} className="text-gray-600 dark:text-gray-400 hover:text-white transition-colors">
                   {settings?.phone || "+221 77 000 00 00"}
                 </a>
               </li>
@@ -148,11 +154,14 @@ export default async function Footer() {
         </div>
 
         {/* BARRE DE COPYRIGHT */}
-        <div className="border-t border-gray-200 dark:border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
+        <div className="border-t border-gray-200 dark:border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs opacity-60 hover:opacity-100 transition-opacity">
           <p>&copy; {currentYear} Fierlah Agency. Tous droits réservés.</p>
-          <div className="mt-4 md:mt-0">
-            <Link href="/politique-confidentialite" className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">
-              Politique de Confidentialité
+          <div className="mt-4 md:mt-0 flex gap-6">
+            <Link href="/politique-confidentialite" className="hover:text-primary transition-colors">
+              Mentions Légales
+            </Link>
+            <Link href="/politique-confidentialite" className="hover:text-primary transition-colors">
+              Confidentialité
             </Link>
           </div>
         </div>

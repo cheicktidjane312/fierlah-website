@@ -1,9 +1,11 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 
-const fadeInUp: Variants = {
+// Configuration de l'animation d'apparition
+const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: { 
     opacity: 1, 
@@ -14,7 +16,7 @@ const fadeInUp: Variants = {
 
 export default function AboutPage() {
   return (
-    // MODIF: Fond clair le jour / sombre la nuit
+    // Fond clair le jour / sombre la nuit
     <main className="min-h-screen bg-white dark:bg-background text-gray-900 dark:text-white pt-32 pb-20 px-4 md:px-20 transition-colors duration-300">
       
       {/* 1. HERO SECTION */}
@@ -29,7 +31,7 @@ export default function AboutPage() {
       </div>
 
       {/* 2. SECTION FONDATEUR */}
-      {/* MODIF: Carte blanche + ombre le jour / Carte noire la nuit */}
+      {/* Carte blanche + ombre le jour / Carte noire la nuit */}
       <div className="max-w-6xl mx-auto bg-white dark:bg-surface border border-gray-200 dark:border-gray-800 rounded-3xl p-8 md:p-12 mb-32 relative overflow-hidden shadow-xl dark:shadow-none transition-all">
         
         {/* Petit effet de fond */}
@@ -103,10 +105,9 @@ export default function AboutPage() {
               icon: "🤝"
             }
           ].map((val, i) => (
-            // MODIF: Transformation en motion.div pour l'animation
             <motion.div 
               key={i}
-              // 👇 ANIMATION D'OSCILLATION AJOUTÉE
+              // ANIMATION D'OSCILLATION AJOUTÉE
               animate={{ y: [0, -10, 0] }}
               transition={{ 
                 duration: 5, 
@@ -114,7 +115,6 @@ export default function AboutPage() {
                 ease: "easeInOut",
                 delay: i * 0.4 
               }}
-              // Carte valeur adaptée Jour/Nuit
               className="bg-white dark:bg-surface p-8 rounded-2xl border border-gray-200 dark:border-gray-800 hover:border-primary/50 transition-all shadow-md dark:shadow-none"
             >
               <div className="text-4xl mb-4">{val.icon}</div>
@@ -126,7 +126,7 @@ export default function AboutPage() {
       </div>
 
       {/* 4. CTA FINAL */}
-      {/* MODIF: Fond gris clair le jour, sombre la nuit */}
+      {/* Fond gris clair le jour, sombre la nuit */}
       <div className="text-center bg-gray-100 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 rounded-3xl p-12 md:p-20 max-w-4xl mx-auto transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 dark:text-white">Envie de discuter de votre vision ?</h2>
         <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-xl mx-auto">
@@ -134,7 +134,7 @@ export default function AboutPage() {
         </p>
         <Link 
           href="/contact" 
-          // MODIF: Bouton Noir le jour / Blanc la nuit pour contraster
+          // Bouton Noir le jour / Blanc la nuit pour contraster
           className="inline-block px-10 py-4 bg-black dark:bg-white text-white dark:text-black font-bold text-lg rounded-full hover:scale-105 transition-transform shadow-[0_0_20px_rgba(0,0,0,0.2)] dark:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
         >
           Contactez-nous

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
-// 👇 IMPORTATIONS CORRIGÉES (Chemins relatifs)
 import AnimatedBackground from "../components/AnimatedBackground";
 import { ThemeProvider } from "../components/ThemeProvider";
+// 👇 J'ajoute Navbar et Footer ici pour qu'ils soient présents sur TOUTES les pages automatiquement
+import Navbar from "../components/layout/Navbar"; 
+import Footer from "../components/layout/Footer";
 
 // Configuration de la police
 const outfit = Outfit({ 
@@ -37,15 +39,7 @@ const jsonLd = {
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday"
-      ],
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
       opens: '09:00',
       closes: '22:00'
     }
@@ -80,29 +74,40 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // 👇 suppressHydrationWarning est OBLIGATOIRE pour le mode sombre
     <html lang="fr" className="scroll-smooth" suppressHydrationWarning>
       
-      {/* J'ai adapté les couleurs ici : Blanc par défaut, Noir (ton background) en mode Dark */}
-      <body className={`${outfit.className} bg-white dark:bg-background text-black dark:text-white antialiased overflow-x-hidden`}>
+      {/* MODIFS ICI : 
+         1. bg-gray-50 pour le mode jour (plus doux que blanc pur)
+         2. dark:bg-black pour le mode nuit (noir profond)
+         3. transition-colors duration-300 pour l'effet fluide
+      */}
+      <body className={`${outfit.className} bg-gray-50 dark:bg-black text-gray-900 dark:text-white antialiased overflow-x-hidden transition-colors duration-300`}>
         
-        {/* 👇 Le Provider englobe tout pour gérer le changement de thème */}
         <ThemeProvider
             attribute="class"
-            defaultTheme="dark" // On démarre en mode sombre par défaut
-            enableSystem
+            defaultTheme="dark" // Force le mode sombre par défaut
+            enableSystem={false} // Désactive la détection système pour éviter les conflits
             disableTransitionOnChange
         >
-            {/* Le fond animé (Filet + Lueurs) */}
+            {/* Le fond animé reste en arrière-plan */}
             <AnimatedBackground />
 
-            {/* Script SEO JSON-LD */}
+            {/* Script SEO */}
             <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             
-            {children}
+            {/* 👇 STRUCTURE GLOBALE DU SITE 
+                J'ai ajouté Navbar et Footer ici.
+                Cela t'évite de devoir les importer sur chaque page (Accueil, À propos, etc.)
+            */}
+            <Navbar />
+            <div className="relative z-10">
+                {children}
+            </div>
+            <Footer />
+
         </ThemeProvider>
 
       </body>
