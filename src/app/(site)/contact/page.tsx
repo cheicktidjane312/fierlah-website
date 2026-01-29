@@ -1,7 +1,6 @@
-"use client";
-
 import { client } from "../../../lib/sanity";
-import { motion } from "framer-motion";
+// 👇 IMPORTATION SPÉCIALE pour utiliser Framer Motion dans un Composant Serveur
+import * as motion from "framer-motion/client"; 
 
 // --- 1. DÉFINITION DES ICÔNES ---
 const IconMail = ({ className }: { className?: string }) => (
@@ -33,8 +32,7 @@ async function getSettings() {
   return await client.fetch(query);
 }
 
-export const revalidate = 0;
-
+// Pas de "use client" ici, c'est un Composant Serveur (Server Component)
 export default async function ContactPage() {
   const settings: Settings = await getSettings();
 
