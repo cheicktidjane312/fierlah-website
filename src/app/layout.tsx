@@ -75,42 +75,33 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className="scroll-smooth" suppressHydrationWarning>
-      
-      {/* MODIFS ICI : 
-         1. bg-gray-50 pour le mode jour (plus doux que blanc pur)
-         2. dark:bg-black pour le mode nuit (noir profond)
-         3. transition-colors duration-300 pour l'effet fluide
-      */}
       <body className={`${outfit.className} bg-gray-50 dark:bg-black text-gray-900 dark:text-white antialiased overflow-x-hidden transition-colors duration-300`}>
         
         <ThemeProvider
             attribute="class"
-            defaultTheme="dark" // Force le mode sombre par défaut
-            enableSystem={false} // Désactive la détection système pour éviter les conflits
+            defaultTheme="dark"
+            enableSystem={false}
             disableTransitionOnChange
         >
-            {/* Le fond animé reste en arrière-plan */}
-            <AnimatedBackground />
+            {/* On s'assure que le fond ne bloque pas l'affichage */}
+            <div className="fixed inset-0 z-0 pointer-events-none">
+                <AnimatedBackground />
+            </div>
 
-            {/* Script SEO */}
+            <div className="relative z-10 flex flex-col min-h-screen">
+                <Navbar />
+                <main className="flex-grow">
+                    {children}
+                </main>
+                <Footer />
+            </div>
+
             <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-            
-            {/* 👇 STRUCTURE GLOBALE DU SITE 
-                J'ai ajouté Navbar et Footer ici.
-                Cela t'évite de devoir les importer sur chaque page (Accueil, À propos, etc.)
-            */}
-            <Navbar />
-            <div className="relative z-10">
-                {children}
-            </div>
-            <Footer />
-
         </ThemeProvider>
-
       </body>
-    </html >
+    </html>
   );
 }

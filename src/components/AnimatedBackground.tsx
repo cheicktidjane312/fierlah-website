@@ -4,83 +4,78 @@ import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function AnimatedBackground() {
-  // Gestion de la souris pour l'effet "Spotlight"
-  let mouseX = useMotionValue(0);
-  let mouseY = useMotionValue(0);
+  // 1. Définition des MotionValues au sommet
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
-  function handleMouseMove({ currentTarget, clientX, clientY }: any) {
-    let { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
+  // 2. Définition du Template de la lueur (Hook appelé au sommet)
+  const spotlightGradient = useMotionTemplate`
+    radial-gradient(
+      650px circle at ${mouseX}px ${mouseY}px,
+      rgba(0, 255, 255, 0.07),
+      transparent 80%
+    )
+  `;
 
-  // Empêcher l'hydratation mismatch (rendu serveur vs client)
   const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
     setMounted(true);
-  }, []);
 
+    // Écouteur global pour suivre la souris même avec pointer-events-none
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  // Rendu conditionnel APRÈS tous les Hooks
   if (!mounted) return null;
 
   return (
-    <div 
-      className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none"
-      onMouseMove={handleMouseMove}
-    >
+    <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none select-none">
       
-      {/* 1. FOND DE BASE (Géré par layout.tsx, ici on ajoute juste la texture) */}
-      
-      {/* 2. CYBER-GRILLE MOUVANTE */}
-      {/* Mode Jour : Grille Noire subtile / Mode Nuit : Grille Blanche subtile */}
+      {/* CYBER-GRILLE : Animation de défilement pour l'effet de profondeur */}
       <motion.div 
         initial={{ backgroundPosition: "0 0" }}
         animate={{ backgroundPosition: ["0px 0px", "50px 50px"] }}
-        transition={{ repeat: Infinity, duration: 5, ease: "linear" }}
-        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.07] bg-grid-black dark:bg-grid-white"
+        transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
+        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.08] bg-grid-black dark:bg-grid-white"
         style={{
-             maskImage: "linear-gradient(to bottom, transparent, black, transparent)",
-             WebkitMaskImage: "linear-gradient(to bottom, transparent, black, transparent)"
+             maskImage: "radial-gradient(circle at center, black, transparent 90%)",
+             WebkitMaskImage: "radial-gradient(circle at center, black, transparent 90%)"
         }}
       />
 
-      {/* 3. SPOTLIGHT INTERACTIF (Suit la souris) */}
-      {/* Crée une zone de lumière qui révèle la grille autour du curseur */}
+      {/* SPOTLIGHT INTERACTIF : Suit le curseur pour éclairer la grille */}
       <motion.div
         className="absolute inset-0 opacity-0 md:opacity-100 transition-opacity duration-500"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              600px circle at ${mouseX}px ${mouseY}px,
-              rgba(0, 255, 255, 0.06),
-              transparent 80%
-            )
-          `,
-        }}
+        style={{ background: spotlightGradient }}
       />
 
-      {/* 4. LUEURS AMBIANTES (Blobs "Vivants") */}
-      
-      {/* Lueur Cyan (Primary) - Pulsation lente */}
+      {/* BLOBS AMBIANTS : Pulsation pour donner de la vie au fond */}
       <motion.div
         animate={{
           scale: [1, 1.2, 1],
-          opacity: [0.1, 0.2, 0.1],
+          opacity: [0.1, 0.18, 0.1],
         }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -top-[20%] -left-[10%] w-[800px] h-[800px] bg-primary rounded-full blur-[150px] opacity-10 dark:opacity-20 mix-blend-screen"
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -top-[10%] -left-[10%] w-[800px] h-[800px] bg-primary rounded-full blur-[130px] mix-blend-screen"
       />
 
-      {/* Lueur Bleue (Secondaire) - Mouvement opposé */}
       <motion.div
         animate={{
           scale: [1, 1.3, 1],
-          opacity: [0.1, 0.15, 0.1],
+          opacity: [0.08, 0.15, 0.08],
         }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute -bottom-[20%] -right-[10%] w-[800px] h-[800px] bg-blue-600 rounded-full blur-[150px] opacity-10 dark:opacity-20 mix-blend-screen"
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+        className="absolute -bottom-[20%] -right-[10%] w-[900px] h-[900px] bg-blue-600 rounded-full blur-[150px] mix-blend-screen"
       />
 
-      {/* 5. TEXTURE "SCANLINES" (Effet Écran High-Tech) */}
+      {/* SCANLINES : Texture TV vintage / Futuriste très subtile */}
       <div className="absolute inset-0 bg-[url('/assets/grid.png')] opacity-[0.02] pointer-events-none mix-blend-overlay"></div>
 
     </div>

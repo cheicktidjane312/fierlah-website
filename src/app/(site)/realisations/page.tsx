@@ -1,4 +1,3 @@
-"use client";
 import { client, urlFor } from "../../../lib/sanity";
 import Image from "next/image";
 import Link from "next/link";

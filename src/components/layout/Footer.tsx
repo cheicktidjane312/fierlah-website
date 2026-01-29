@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { client } from "../../lib/sanity";
-
+import * as motion from "framer-motion/client";
 // --- 1. DÉFINITION DES ICÔNES ---
 
 const IconMapPin = ({ className }: { className?: string }) => (
